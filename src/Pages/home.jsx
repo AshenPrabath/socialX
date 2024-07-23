@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PostComponent from "../Components/postComponent";
+import ButtonComponent from "../Components/buttonComponent";
 
 const Home = () => {
   const [posts, setPosts] = useState([
@@ -33,21 +34,16 @@ const Home = () => {
     setPosts([...posts, newPost]);
   };
   return (
-    <div className="">
+    <div className="w-1/2 mx-auto">
       <div className="border-b-2">
-        <h1 className="text-2xl font-semibold">Welcome to SocialX</h1>
+        <h1 className="text-2xl font-semibold py-2">Welcome to Social X</h1>
       </div>
       <div>
         <Link to="/new-post">
-          <button
-            onClick={addPost}
-            className="mt-4 w-5/12 bg-green-900 text-white py-2 px-4 rounded"
-          >
-            Add Post
-          </button>
+          <ButtonComponent buttonText="Add New Post" onClick={addPost}/>
         </Link>
       </div>
-      <div className="p-10">
+      <div className="py-10">
         {posts.map((post) => (
           <Link to={`post/${post.id}`} key={post.id}>
             <PostComponent
