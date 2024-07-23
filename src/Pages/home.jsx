@@ -1,29 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import PostComponent from "../Components/postComponent";
 import ButtonComponent from "../Components/buttonComponent";
+import Axios from "axios";
 
 const Home = () => {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "First Post",
-      text: "This is the text of the first post.",
-      comments: 2,
-    },
-    {
-      id: 2,
-      title: "Second Post",
-      text: "This is the text of the second post.",
-      comments: 5,
-    },
-    {
-      id: 3,
-      title: "Third Post",
-      text: "This is the text of the third post.",
-      comments: 3,
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/posts").then((response)=>{
+      setPosts(response.data);
+    })
+  },[])
 
   const addPost = () => {
     const newPost = {
@@ -45,10 +33,11 @@ const Home = () => {
       </div>
       <div className="py-10">
         {posts.map((post) => (
-          <Link to={`post/${post.id}`} key={post.id}>
+          <Link to={`post/${post._id}`} key={post._id}>
             <PostComponent
               title={post.title}
-              text={post.text}
+              text={post.content}
+              color={post.color}
               comments={post.comments}
             />
           </Link>

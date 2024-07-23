@@ -5,6 +5,44 @@ const NewPost = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [color, setColor] = useState("blue");
+  const [loading, setLoading] = useState(false);
+ 
+  const handleSubmit = async () => {
+    if (!title || !text || !color) {
+      // setError("Please fill out all fields.");
+      return;
+    }
+    
+   
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          content:text,
+          color,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create post");
+      }
+
+      const result = await response.json();
+      setTitle("");
+      setText("");
+      setColor("blue");
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-1/2 mx-auto">
       <div className="border-b-2">
@@ -58,7 +96,7 @@ const NewPost = () => {
           </div>
         </div>
       </div>
-      <ButtonComponent buttonText="Create post" onClick={() => {}}/>
+      <ButtonComponent buttonText="Create post" onClick={handleSubmit} disabled={loading}/>
     </div>
   );
 };
