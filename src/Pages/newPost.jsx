@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ButtonComponent from "../Components/buttonComponent";
+import {Link } from "react-router-dom";
+
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
@@ -49,7 +51,7 @@ const NewPost = () => {
         <h1 className="text-2xl font-semibold py-2">Create a post</h1>
       </div>
 
-      <div className="w-10/12 mx-auto">
+      <div className=" mx-auto">
         <div className="mb-4 pt-10">
           <input
             type="text"
@@ -69,26 +71,26 @@ const NewPost = () => {
           />
         </div>
 
-        <div className="mb-4 flex">
-          <label className="block mb-2 font-medium">Select Color</label>
+        <div className="mb-4 flex justify-between">
+          <label className="block mb-2 font-medium">Tile Color</label>
           <div className="flex space-x-4">
             <button
               onClick={() => setColor("blue")}
-              className={`p-5 rounded-full ${
+              className={`p-5 rounded-md ${
                 color === "blue" ? "border-4 border-black" : ""
               }`}
               style={{ backgroundColor: "blue" }}
             />
             <button
               onClick={() => setColor("green")}
-              className={`p-5 rounded-full ${
+              className={`p-5 rounded-md ${
                 color === "green" ? "border-4 border-black" : ""
               }`}
               style={{ backgroundColor: "green" }}
             />
             <button
               onClick={() => setColor("red")}
-              className={`p-5 rounded-full ${
+              className={`p-5 rounded-md ${
                 color === "red" ? "border-4 border-black" : ""
               }`}
               style={{ backgroundColor: "red" }}
@@ -96,7 +98,10 @@ const NewPost = () => {
           </div>
         </div>
       </div>
-      <ButtonComponent buttonText="Create post" onClick={handleSubmit} disabled={loading}/>
+      <ButtonComponent buttonText="Publish" onClick={handleSubmit} disabled={loading}/>
+      <Link to={`/`}>
+      <p className="pt-4 text-md">Back to home</p>
+      </Link>
     </div>
   );
 };
